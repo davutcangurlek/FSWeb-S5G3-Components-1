@@ -94,6 +94,7 @@ const data = [
   Adım 1: Haber oluşturmak için 'haberYapici' adında bir bileşen(component) oluşturun.
   Bileşeniniz, argümanı haberleri içeren dizi olarak alan bir fonksiyon olacak,
   ve aşağıdaki gibi görünen bir DOM düğümü döndürecek:
+  
 
   <div class="article">
     <h2>{haber başlığı}</h2>
@@ -115,3 +116,36 @@ const data = [
   Adım 5: Veri dizisine yeni haber nesnesi eklemeyi deneyin. Diğer verilerle aynı yapıda olmasına dikkat edin.
   Eklediğiniz yeni haberi görmek için sayfayı yenileyin.
 */
+function haberYapici(data) {
+  const haberDiv = document.createElement("div");
+  haberDiv.classList.add("article");
+  const haberH2 = document.createElement("h2");
+  haberH2.textContent = data.baslik;
+  const tarihP = document.createElement("p");
+  tarihP.classList.add("tarih");
+  tarihP.textContent = data.tarih;
+  const paragraf1 = document.createElement("p");
+  paragraf1.textContent = data.ilkParagraf;
+  const paragraf2 = document.createElement("p");
+  paragraf2.textContent = data.ikinciParagraf;
+  const paragraf3 = document.createElement("p");
+  paragraf3.textContent = data.ucuncuParagraf;
+  const btn = document.createElement("button");
+  btn.classList.add("expandButton");
+  btn.textContent = "+";
+  haberDiv.append(haberH2);
+  haberDiv.append(tarihP);
+  haberDiv.append(paragraf1);
+  haberDiv.append(paragraf2);
+  haberDiv.append(paragraf3);
+  haberDiv.append(btn);
+  btn.addEventListener("click", (event) => {
+    haberDiv.classList.toggle("article-open");
+  });
+  return haberDiv;
+}
+const articles = document.querySelector(".articles");
+for (let veri of data) {
+  const haber = haberYapici(veri);
+  articles.append(haber);
+}
